@@ -2,12 +2,19 @@
 #include <iostream>
 #include <fstream>
 
+struct result
+{
+    std::string palindromo;
+    int length;
+    int begin;
+    int end;
+};
 
 // Function that finds and prints the largest palindrome in a given text
 // n: length of text
 // m: length of largest palindrome
 // Space complexity: O(1)
-bool palindromo (std::string text, std::pair<int, int> &curr_best) {
+void find_palindrome (std::string text, std::pair<int, int> &curr_best, result &best_result) {
     int center = 0;
     int left_bound, right_bound;
     
@@ -15,12 +22,12 @@ bool palindromo (std::string text, std::pair<int, int> &curr_best) {
 
     for (center; center < text.length(); center++) { // O(nm)
 
+        // Odd palindrome
         left_bound = center; right_bound = center;
 
         // Initializing palindrome length as 0 at center
         int palindrome_length = 0;
 
-        // Odd palindrome
         while (text[left_bound] == text[right_bound]) // O(m) / Average: O(1)
         {
 
@@ -28,10 +35,11 @@ bool palindromo (std::string text, std::pair<int, int> &curr_best) {
             palindrome_length++;
 
             // Updating max_length and center
-            if (palindrome_length > curr_best.first) {
-                curr_best.first = palindrome_length;
-                curr_best.second = center;
-                even = false;
+            if (palindrome_length * 2 - 1 > best_result.length) {
+                best_result.length = palindrome_length * 2 - 1;
+                best_result.begin = center - palindrome_length + 1;
+                best_result.end = center + palindrome_length - 1;
+                best_result.palindromo = text.substr(best_result.begin, palindrome_length * 2 - 1);
             }
 
             // Keep expanding palindrome
@@ -59,10 +67,11 @@ bool palindromo (std::string text, std::pair<int, int> &curr_best) {
             palindrome_length++;
 
             // Updating max_length and center
-            if (palindrome_length > curr_best.first) {
-                curr_best.first = palindrome_length;
-                curr_best.second = center;
-                even = true;
+            if (palindrome_length * 2 > best_result.length) {
+                best_result.length = palindrome_length * 2;
+                best_result.begin = center - palindrome_length + 1;
+                best_result.end = center + palindrome_length;
+                best_result.palindromo = text.substr(best_result.begin, palindrome_length * 2);
             }
 
             // Keep expanding palindrome
@@ -77,34 +86,18 @@ bool palindromo (std::string text, std::pair<int, int> &curr_best) {
             }
         }
     }
-
-    std::cout << "\nLargest palindrome @ " << line_n << "\n";
-    std::cout << "Length of palindrome " << max_length << "\n\n";
-    std::cout << max_center - max_length + 1;
-
-    // Print even palindrome
-    if (even_result) {
-        std::cout << " - " << max_center + max_length << "\t";
-        for (int i = max_center - max_length + 1; i < max_center + max_length + 1; i++) { // O(m)
-            std::cout << line[i];
-        }
-    }
-
-    // Print odd palindrome
-    else {
-        std::cout << " - " << max_center + max_length - 1 << "\t";
-        for (int i = max_center - max_length + 1; i < max_center + max_length; i++) { // O(m)
-            std::cout << line[i];
-        }
-    }
-
-    return even;
 }
 
 void biggest_palindrome_in (std::string name) {
 
-    std::string line;
-    std::string pal1;
+    std::string read_line;
+
+    result mejor_palindromo;
+    result curr_palindromo;
+    mejor_palindromo.begin = 0;
+    mejor_palindromo.end = 0;
+    mejor_palindromo.length= 0;
+    mejor_palindromo.palindromo = "";
 
     std::ifstream myfile;
     myfile.open(name);
@@ -116,15 +109,14 @@ void biggest_palindrome_in (std::string name) {
     int result_line = line_n;
 
     if ( myfile.is_open() ) {
-        while ( myfile >> line ) {
+        while ( myfile >> read_line ) {
 
-            even = palindromo(line, result);
+            // Searching biggest palindrome in a given line
+            find_palindrome(read_line, result, curr_palindromo);
 
-            if (curr_max_length < result.first) {
-                curr_max_length = result.first;
+            if (mejor_palindromo.length < curr_palindromo.length) {
+                mejor_palindromo = curr_palindromo;
                 result_line = line_n;
-                pal1 = line;
-                even_result = even;
             }
 
             line_n++;
@@ -133,39 +125,16 @@ void biggest_palindrome_in (std::string name) {
 
     myfile.close();
 
-    
-    int max_center = result.second;
-    int max_length = result.first;
-
-    std::cout << "\nLargest palindrome @ " << line_n << "\n";
-    std::cout << "Length of palindrome " << max_length << "\n\n";
-    std::cout << max_center - max_length + 1;
-
-    // Print even palindrome
-    if (even_result) {
-        std::cout << " - " << max_center + max_length << "\t";
-        for (int i = max_center - max_length + 1; i < max_center + max_length + 1; i++) { // O(m)
-            std::cout << line[i];
-        }
-    }
-
-    // Print odd palindrome
-    else {
-        std::cout << " - " << max_center + max_length - 1 << "\t";
-        for (int i = max_center - max_length + 1; i < max_center + max_length; i++) { // O(m)
-            std::cout << line[i];
-        }
-    }
-
-    std::cout << "\n" << std::endl;
-
-
-
+    std::cout << "\nLargest palindrome @ " << result_line << "\n";
+    std::cout << "Length of palindrome " << mejor_palindromo.length << "\n\n";
+    std::cout << mejor_palindromo.begin << " - " << mejor_palindromo.end << "\t";
+    std::cout << mejor_palindromo.palindromo << "\n" << std::endl;
 }
 
 int main(int argc, char const *argv[])
 {
-    biggest_palindrome_in("log.txt");
+    biggest_palindrome_in("log_p.txt");
+    // biggest_palindrome_in("log3.txt");
 
     /* code */
     return 0;
