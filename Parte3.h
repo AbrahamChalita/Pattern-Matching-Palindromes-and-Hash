@@ -26,7 +26,7 @@ public:
     ~Parte3();
 
     // Methods
-    result longest_common_substring ();
+    void longest_common_substring ();
 };
 
 Parte3::Parte3(std::string filename_1, std::string filename_2)
@@ -66,6 +66,7 @@ Parte3::Parte3(std::string filename_1, std::string filename_2)
 
 Parte3::~Parte3()
 {
+    delete this;
 }
 
 result Parte3::solution (std::string largest_text, std::string shortest_text, int order) {
@@ -108,7 +109,7 @@ result Parte3::solution (std::string largest_text, std::string shortest_text, in
     return res;
 }
 
-result Parte3::longest_common_substring () {
+void Parte3::longest_common_substring () {
     
     result res;
     
@@ -125,8 +126,6 @@ result Parte3::longest_common_substring () {
         std::cout << text1[i];
     }
     std::cout << std::endl;
-
-    return res;
 }
 
 #endif
