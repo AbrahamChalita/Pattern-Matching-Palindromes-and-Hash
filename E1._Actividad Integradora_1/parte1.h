@@ -121,7 +121,7 @@ void patternIndex(string texto, string patron){
 // O(m + n)
 void printMatch(string texto, string patron, int count){
     cout << "(true) Found pattern: ";
-    cout << "[" << patron << "]" << " on line: " << count - 1;
+    cout << "[" << patron << "]" << " on line: " << count;
     patternIndex(texto, patron);
 }
 
