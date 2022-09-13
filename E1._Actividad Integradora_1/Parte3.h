@@ -49,6 +49,8 @@ Parte3::Parte3(vector<string> file1, vector<string> file2)
     }
 }
 
+// Sultion
+// Function that finds the largest common substring between two texts. / O(n^2)
 result Parte3::solution (string largest_text, string shortest_text, int order) {
     int currentMatch;
     result res;
@@ -56,16 +58,20 @@ result Parte3::solution (string largest_text, string shortest_text, int order) {
     res.length = 0;
     res.boundaries = pair<int,int>(0,0);
 
+    // For loop that defines the shift to the left that the largest string has from the shortest string
     for (int start = 0; start < largest_text.length(); start++) {
-        
+        // Initializing current match to 0 for a given shift
         currentMatch = 0;
-
+        // For loop iterating matching characters
         for (int i = start; i < largest_text.length(); i++) {
             
+            // If index goes out of bounds, loop breaks
             if (i - start == shortest_text.length()) break;
             
+            // Counting matching characters
             if (largest_text[i] == shortest_text[i - start]) {
                 currentMatch++;
+                // Updating biggest match if current count is max
                 if (currentMatch > res.length) {
 
                     if (order == 1) {
@@ -82,6 +88,7 @@ result Parte3::solution (string largest_text, string shortest_text, int order) {
                 }
             }
             else {
+                // Restarting counter
                 currentMatch = 0;
             }
         }
@@ -89,18 +96,19 @@ result Parte3::solution (string largest_text, string shortest_text, int order) {
     return res;
 }
 
-void Parte3::longest_common_substring () {
+void Parte3::longest_common_substring () { // O(n^2)
     
     result res;
     
     // Finding the largest common substring between the texts
     if (text1.length() > text2.length()) {
-        res = solution(text1, text2, 1);
+        res = solution(text1, text2, 1); // O(n^2)
     }
     else {
-        res = solution(text2, text1, 2);
+        res = solution(text2, text1, 2); // O(n^2)
     }
 
+    // Printing the results
     cout << res.boundaries.first << " - " << res.boundaries.second << "\t";
     for (int i = res.boundaries.first; i <= res.boundaries.second; i++) {
         cout << text1[i];
