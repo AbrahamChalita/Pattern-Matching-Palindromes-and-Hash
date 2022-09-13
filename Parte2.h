@@ -116,7 +116,7 @@ void Parte2::find_palindrome (string text, palindrome &best_result) {
     }
 }
 
-void Parte2::biggest_palindrome_in () {
+void Parte2::biggest_palindrome_in () { // O(nm)
 
     palindrome mejor_palindromo;
     mejor_palindromo.begin = 0;
@@ -128,11 +128,13 @@ void Parte2::biggest_palindrome_in () {
     int line_n = 1;
     int result_line = line_n;
 
+    // Loking for palindroms in each line
     for ( string read_line : this->text ) {
 
         // Searching biggest palindrome in a given line
-        find_palindrome(read_line, curr_palindromo);
+        find_palindrome(read_line, curr_palindromo); // O(nm)
 
+        // Updating result if palindrome is bigger than saved one
         if (mejor_palindromo.length < curr_palindromo.length) {
             mejor_palindromo = curr_palindromo;
             result_line = line_n;
