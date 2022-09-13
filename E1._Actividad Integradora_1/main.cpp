@@ -18,6 +18,8 @@
 
 using namespace std;
 
+// It is important to mention, that according to project specifications, the files can only have values of 0-9 and A-F, otherwise, the file wont be accepted
+// This function validates that every caracter in a given vector (taken from file) is within constraints
 bool file_is_hexa(vector<string> file) {
   for (string line : file) {
     for (char c : line) {
