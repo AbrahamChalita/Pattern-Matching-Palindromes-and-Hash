@@ -7,7 +7,7 @@
 		12/09/2022
 */
 
-#include "Parte1.h"
+#include "parte1.h"
 #include "Parte2.h"
 #include "Parte3.h"
 #include <fstream>
