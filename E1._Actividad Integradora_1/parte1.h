@@ -116,12 +116,12 @@ void patternIndex(string texto, string patron){
     }
 }
 
-// Function that prints, in concatenation with the last function, when there is a match. The function prints the pattern and the line, given by a count as arrgument
-// along with the indexes
+// Function that prints, in concatenation with the last function, when there is a match. The function prints the pattern and the line, given by a count as argument
+// along with the indexes. Count is added one to have lines from 1 - N
 // O(m + n)
 void printMatch(string texto, string patron, int count){
     cout << "(true) Found pattern: ";
-    cout << "[" << patron << "]" << " on line: " << count;
+    cout << "[" << patron << "]" << " on line: " << count + 1;
     patternIndex(texto, patron);
 }
 
