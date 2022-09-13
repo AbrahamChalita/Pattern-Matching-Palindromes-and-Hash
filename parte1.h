@@ -110,29 +110,9 @@ void printMatch(string texto, string patron, int count){
     patternIndex(texto, patron);
 }
 
-vector<string> getCodes(string fileName){
-    vector<string> results;
-    ifstream mcode(fileName);
-    if(mcode.is_open()){
-        string line;
-        while(getline(mcode, line)){
-            results.push_back(line);
-        }
-    }
 
-    mcode.close();
-
-    return results;
-}
-
-void searchPatterns(string transmission, string mcode1, string mcode2, string mcode3){
-    vector<string> patternsCodeOne = getCodes(mcode1);
-    vector<string> patternsCodeTwo = getCodes(mcode2);
-    vector<string> patternsCodeThree = getCodes(mcode3);
-
-    vector<string> linesTrans = getCodes(transmission);
-
-    cout << "Transmission 1 -----------> mcode1";
+void searchPatterns(vector<string> linesTrans, vector<string> patternsCodeOne, vector<string> patternsCodeTwo, vector<string> patternsCodeThree){
+    cout << "<---############## mcode1 ##############--->";
     cout << endl;
 
     for(int i = 0; i < patternsCodeOne.size(); i++){
@@ -150,7 +130,7 @@ void searchPatterns(string transmission, string mcode1, string mcode2, string mc
     }
 
     cout << endl;
-    cout << "Transmission 1 -----------> mcode2";
+    cout << "<---############## mcode2 ##############--->";
     cout << endl;
 
     for(int i = 0; i < patternsCodeTwo.size(); i++){
@@ -168,7 +148,7 @@ void searchPatterns(string transmission, string mcode1, string mcode2, string mc
     }
 
     cout << endl;
-    cout << "Transmission 1 -----------> mcode3";
+    cout << "<---############## mcode3 ##############--->";
     cout << endl;
 
     for(int i = 0; i < patternsCodeThree.size(); i++){
@@ -185,6 +165,7 @@ void searchPatterns(string transmission, string mcode1, string mcode2, string mc
         }
     }
 
+    cout << endl;
     cout << endl;
 
 }

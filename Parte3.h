@@ -3,78 +3,58 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
+
+using namespace std;
 
 // Customized datastructure for storing relevant data
 struct result {
     int length;
-    std::pair<int,int> boundaries;
+    pair<int,int> boundaries;
 };
 
 class Parte3
 {
 private:
     // Class variables
-    std::string file1, file2;
-    std::string text1, text2;
+    string text1, text2;
 
     // Methods
-    result solution (std::string largest_text, std::string shortest_text, int order);
+    result solution (string largest_text, string shortest_text, int order);
 
 public:
     // Constructors
-    Parte3(std::string filename_1, std::string filename_2);
-    ~Parte3();
+    Parte3(vector<string> file1, vector<string> file2);
 
     // Methods
     void longest_common_substring ();
 };
 
-Parte3::Parte3(std::string filename_1, std::string filename_2)
+Parte3::Parte3(vector<string> file1, vector<string> file2)
 {
-    // Helper variables
-    std::string line;
-    std::ifstream myfile;
-
     // Reading first file and storing it in variable
-    myfile.open(filename_1);
+    for ( string line : file1 ) {
 
-    if ( myfile.is_open() ) {
-        while ( myfile >> line ) {
+        text1 += line;
+        text1 += "\n";
 
-            text1 += line;
-            text1 += "\n";
-
-        }
     }
-
-    myfile.close();
 
     // Reading second file and storing it in variable
-    myfile.open(filename_2);
+    for ( string line : file2 ) {
 
-    if ( myfile.is_open() ) {
-        while ( myfile >> line ) {
+        text2 += line;
+        text2 += "\n";  
 
-            text2 += line;
-            text2 += "\n";  
-
-        }
     }
-
-    myfile.close();
 }
 
-Parte3::~Parte3()
-{
-    delete this;
-}
-
-result Parte3::solution (std::string largest_text, std::string shortest_text, int order) {
+result Parte3::solution (string largest_text, string shortest_text, int order) {
     int currentMatch;
     result res;
 
     res.length = 0;
-    res.boundaries = std::pair(0,0);
+    res.boundaries = pair<int,int>(0,0);
 
     for (int start = 0; start < largest_text.length(); start++) {
         
@@ -90,15 +70,15 @@ result Parte3::solution (std::string largest_text, std::string shortest_text, in
 
                     if (order == 1) {
                         res.length = currentMatch;
-                        res.boundaries = std::pair(i + 1 - currentMatch, i);
+                        res.boundaries = pair<int,int>(i + 1 - currentMatch, i);
                     }
                     else if (order == 2) {
                         res.length = currentMatch;
-                        res.boundaries = std::pair(i + 1 - currentMatch - start, i - start);
+                        res.boundaries = pair<int,int>(i + 1 - currentMatch - start, i - start);
                     }
 
-                    // std::cout << largest_text.substr(i + 1 - currentMatch, currentMatch);
-                    // std::cout << "\n";
+                    // cout << largest_text.substr(i + 1 - currentMatch, currentMatch);
+                    // cout << "\n";
                 }
             }
             else {
@@ -121,11 +101,11 @@ void Parte3::longest_common_substring () {
         res = solution(text2, text1, 2);
     }
 
-    std::cout << res.boundaries.first << " - " << res.boundaries.second << "\t";
+    cout << res.boundaries.first << " - " << res.boundaries.second << "\t";
     for (int i = res.boundaries.first; i <= res.boundaries.second; i++) {
-        std::cout << text1[i];
+        cout << text1[i];
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 #endif
