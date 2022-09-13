@@ -170,6 +170,7 @@ int main(int argc, char const *argv[]) {
     return -2;
   }
 
+  // Complexity of part 1 O(n^2)
   cout << endl;
   cout << "---------------Parte 1---------------" << endl;
   cout << endl;
@@ -180,16 +181,18 @@ int main(int argc, char const *argv[]) {
 	cout << "Pattern matches for: " << fileT2 << endl;
 	cout << endl;
   searchPatterns(transmission2, mcode1, mcode2, mcode3);
+	
+  // Complexity of part 2 O(nm)
   cout << "---------------Parte 2---------------" << endl;
   cout << endl;
-  // biggest_palindrome_in("log_p.txt");
-  // biggest_palindrome_in("log3.txt");
 
   Parte2 palin1 = Parte2(transmission1);
   Parte2 palin2 = Parte2(transmission2);
   palin1.biggest_palindrome_in();
   cout << endl;
   palin2.biggest_palindrome_in();
+
+  // Complexity of part 3 O(n^2)
   cout << "---------------Parte 3---------------" << endl;
   Parte3 testP3 = Parte3(transmission1, transmission2);
   testP3.longest_common_substring();
