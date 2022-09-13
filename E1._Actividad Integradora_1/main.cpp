@@ -143,26 +143,31 @@ int main(int argc, char const *argv[]) {
     cout << "Error verifying hexadecimal values in file (0-9 A-F), please "
             "check the file: "
          << fileT1 << endl;
+    return -2;
   }
   if (!file_is_hexa(transmission2)) {
     cout << "Error verifying hexadecimal values in file (0-9 A-F), please "
             "check the file: "
          << fileT2 << endl;
+    return -2;
   }
   if (!file_is_hexa(mcode1)) {
     cout << "Error verifying hexadecimal values in file (0-9 A-F), please "
             "check the file: "
          << fileMC1 << endl;
+    return -2;
   }
   if (!file_is_hexa(mcode2)) {
     cout << "Error verifying hexadecimal values in file (0-9 A-F), please "
             "check the file: "
          << fileMC2 << endl;
+    return -2;
   }
   if (!file_is_hexa(mcode3)) {
     cout << "Error verifying hexadecimal values in file (0-9 A-F), please "
             "check the file: "
          << fileMC3 << endl;
+    return -2;
   }
 
   cout << endl;
